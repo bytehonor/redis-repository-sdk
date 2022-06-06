@@ -239,4 +239,10 @@ public class RedisLettuceDao {
         return redisTemplate.delete(key);
     }
 
+    public void keyIncreament(String key) {
+        Objects.requireNonNull(key, "key");
+        key = RedisSdkUtils.format(key);
+        redisTemplate.opsForValue().increment(key);
+    }
+    
 }
