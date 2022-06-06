@@ -6,6 +6,7 @@ public class RedisSdkUtils {
 
     private static final String PREFIX = "bytehonor:";
 
+    @Deprecated
     public static String format(String key) {
         Objects.requireNonNull(key, "key");
 

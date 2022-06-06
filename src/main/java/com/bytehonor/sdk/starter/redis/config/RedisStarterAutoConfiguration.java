@@ -19,6 +19,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.bytehonor.sdk.starter.redis.dao.RedisLettuceDao;
 
+/**
+ * @author lijianqiang
+ *
+ */
 @Configuration
 @ConditionalOnClass({ RedisOperations.class, RedisProperties.class })
 @AutoConfigureBefore(RedisAutoConfiguration.class)
