@@ -27,7 +27,7 @@ public class RedisStarterAutoConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(RedisStarterAutoConfiguration.class);
 
     @Bean
-    public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory connectionFactory) {
         LOG.info("[Bytehonor] RedisTemplate");
         RedisTemplate<String, Serializable> template = new RedisTemplate<String, Serializable>();
         StringRedisSerializer serializer = new StringRedisSerializer();
@@ -35,7 +35,7 @@ public class RedisStarterAutoConfiguration {
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         template.setHashKeySerializer(serializer);
         template.setHashValueSerializer(serializer);
-        template.setConnectionFactory(redisConnectionFactory);
+        template.setConnectionFactory(connectionFactory);
         return template;
     }
 
