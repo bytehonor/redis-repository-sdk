@@ -18,6 +18,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.bytehonor.sdk.starter.redis.dao.RedisLettuceDao;
+import com.bytehonor.sdk.starter.redis.service.RedisCacheService;
+import com.bytehonor.sdk.starter.redis.service.impl.RedisCacheServiceImpl;
 
 /**
  * @author lijianqiang
@@ -48,5 +50,12 @@ public class RedisStarterAutoConfiguration {
     public RedisLettuceDao redisLettuceDao(RedisTemplate<String, Serializable> redisTemplate) {
         LOG.info("[Bytehonor] RedisLettuceDao");
         return new RedisLettuceDao(redisTemplate);
+    }
+
+    @ConditionalOnMissingBean(RedisCacheService.class)
+    @Bean
+    public RedisCacheService redisCacheService(RedisLettuceDao redisLettuceDao) {
+        LOG.info("[Bytehonor] RedisCacheService");
+        return new RedisCacheServiceImpl(redisLettuceDao);
     }
 }
