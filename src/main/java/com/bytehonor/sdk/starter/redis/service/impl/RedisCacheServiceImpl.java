@@ -142,6 +142,15 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
+    public void hashIncreament(String key, String field) {
+        if (StringObject.isEmpty(key) || StringObject.isEmpty(field)) {
+            return;
+        }
+
+        redisLettuceDao.hashIncrement(key, field);
+    }
+
+    @Override
     public void hashDelete(String key, String field) {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(field)) {
             return;

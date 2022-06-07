@@ -30,6 +30,8 @@ public interface RedisCacheService {
     
     public void hashIntPut(String key, String field, Integer val);
     
+    public void hashIncreament(String key, String field);
+    
     public void hashDelete(String key, String field);
     
     public int hashSize(String key);

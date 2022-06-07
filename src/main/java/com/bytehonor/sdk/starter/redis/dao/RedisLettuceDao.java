@@ -30,31 +30,31 @@ public class RedisLettuceDao {
         this.redisTemplate = redisTemplate;
     }
 
-    public Long hashIncrement(String key, String hashKey) {
+    public Long hashIncrement(String key, String field) {
         Objects.requireNonNull(key, "key");
-        Objects.requireNonNull(hashKey, "hashKey");
+        Objects.requireNonNull(field, "field");
 
-        return redisTemplate.opsForHash().increment(key, hashKey, 1L);
+        return redisTemplate.opsForHash().increment(key, field, 1L);
     }
 
-    public void hashPut(String key, String hashKey, String val) {
+    public void hashPut(String key, String field, String val) {
         Objects.requireNonNull(key, "key");
-        Objects.requireNonNull(hashKey, "hashKey");
+        Objects.requireNonNull(field, "field");
 
-        redisTemplate.opsForHash().put(key, hashKey, val);
+        redisTemplate.opsForHash().put(key, field, val);
     }
 
-    public Object hashGet(String key, String hashKey) {
+    public Object hashGet(String key, String field) {
         Objects.requireNonNull(key, "key");
-        Objects.requireNonNull(hashKey, "hashKey");
+        Objects.requireNonNull(field, "field");
 
-        return redisTemplate.opsForHash().get(key, hashKey);
+        return redisTemplate.opsForHash().get(key, field);
     }
 
-    public void hashDelete(String key, Object... hashKeys) {
+    public void hashDelete(String key, Object... fields) {
         Objects.requireNonNull(key, "key");
 
-        redisTemplate.opsForHash().delete(key, hashKeys);
+        redisTemplate.opsForHash().delete(key, fields);
     }
 
     /**
@@ -124,10 +124,10 @@ public class RedisLettuceDao {
         return redisTemplate.opsForHash().size(key);
     }
 
-    public Set<Object> hashKeys(String key) {
+    public Set<Object> hashFields(String key) {
         Objects.requireNonNull(key, "key");
 
-        LOG.debug("hashKeys {}", key);
+        LOG.debug("hashFields {}", key);
         return redisTemplate.opsForHash().keys(key);
     }
 
