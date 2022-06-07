@@ -1,11 +1,18 @@
 package com.bytehonor.sdk.starter.redis.service.impl;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.util.CollectionUtils;
+
+import java.util.Set;
+
 import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.getter.IntegerGetter;
+import com.bytehonor.sdk.lang.bytehonor.getter.LongGetter;
 import com.bytehonor.sdk.starter.redis.dao.RedisLettuceDao;
 import com.bytehonor.sdk.starter.redis.service.RedisCacheService;
 
@@ -32,7 +39,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public void kvSetAndTtl(String key, String value, long millis) {
+    public void kvSetAndExpire(String key, String value, long millis) {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(value)) {
             return;
         }
@@ -47,7 +54,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
-        redisLettuceDao.keyDel(key);
+        redisLettuceDao.delete(key);
     }
 
     @Override
@@ -60,12 +67,12 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public void increament(String key) {
+    public void increment(String key) {
         if (StringObject.isEmpty(key)) {
             return;
         }
 
-        redisLettuceDao.keyIncreament(key);
+        redisLettuceDao.increment(key);
     }
 
     @Override
@@ -142,7 +149,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public void hashIncreament(String key, String field) {
+    public void hashIncrement(String key, String field) {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(field)) {
             return;
         }
@@ -167,6 +174,96 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
         Long size = redisLettuceDao.hashSize(key);
         return size != null ? size.intValue() : 0;
+    }
+
+    @Override
+    public int setSize(String key) {
+        if (StringObject.isEmpty(key)) {
+            return 0;
+        }
+
+        Long size = redisLettuceDao.setSize(key);
+        return size != null ? size.intValue() : 0;
+    }
+
+    @Override
+    public void setAdd(String key, String value) {
+        if (StringObject.isEmpty(key) || StringObject.isEmpty(value)) {
+            return;
+        }
+
+        redisLettuceDao.setAdd(key, value);
+    }
+
+    @Override
+    public void setAdds(String key, Set<String> values) {
+        if (StringObject.isEmpty(key) || CollectionUtils.isEmpty(values)) {
+            return;
+        }
+
+        redisLettuceDao.setAdds(key, values.toArray());
+    }
+
+    @Override
+    public boolean setContains(String key, String value) {
+        if (StringObject.isEmpty(key) || StringObject.isEmpty(value)) {
+            return false;
+        }
+
+        return redisLettuceDao.setContains(key, value);
+    }
+
+    @Override
+    public Set<String> setMemebers(String key) {
+        if (StringObject.isEmpty(key)) {
+            return new HashSet<String>();
+        }
+        Set<Serializable> raws = redisLettuceDao.setMemebers(key);
+        Set<String> result = new HashSet<String>(raws.size() * 2);
+        for (Serializable raw : raws) {
+            result.add(raw.toString());
+        }
+        return result;
+    }
+
+    @Override
+    public void setLongAdd(String key, Long value) {
+        if (StringObject.isEmpty(key) || value == null) {
+            return;
+        }
+
+        redisLettuceDao.setAdd(key, value.toString());
+    }
+
+    @Override
+    public void setLongAdds(String key, Set<Long> values) {
+        if (StringObject.isEmpty(key) || CollectionUtils.isEmpty(values)) {
+            return;
+        }
+
+        redisLettuceDao.setAdds(key, values.toArray());
+    }
+
+    @Override
+    public boolean setLongContains(String key, Long value) {
+        if (StringObject.isEmpty(key) || value == null) {
+            return false;
+        }
+
+        return redisLettuceDao.setContains(key, value);
+    }
+
+    @Override
+    public Set<Long> setLongMemebers(String key) {
+        if (StringObject.isEmpty(key)) {
+            return new HashSet<Long>();
+        }
+        Set<Serializable> raws = redisLettuceDao.setMemebers(key);
+        Set<Long> result = new HashSet<Long>(raws.size() * 2);
+        for (Serializable raw : raws) {
+            result.add(LongGetter.optional(raw.toString(), 0L));
+        }
+        return result;
     }
 
 }

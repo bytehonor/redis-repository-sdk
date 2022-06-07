@@ -187,14 +187,27 @@ public class RedisLettuceDao {
     }
 
     /* set 操作 */
-    public void setAdd(String key, Serializable... values) {
+    public Long setSize(String key) {
+        Objects.requireNonNull(key, "key");
+
+        return redisTemplate.opsForSet().size(key);
+    }
+
+    public void setAdd(String key, String value) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(value, "value");
+
+        redisTemplate.opsForSet().add(key, value);
+    }
+
+    public void setAdds(String key, Object[] values) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");
 
         redisTemplate.opsForSet().add(key, values);
     }
 
-    public boolean setIsMemeberOrNot(String key, Object target) {
+    public boolean setContains(String key, Object target) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(target, "target");
 
@@ -215,7 +228,6 @@ public class RedisLettuceDao {
     }
 
     /* string 操作 */
-
     public void kvSet(String key, String value) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(value, "value");
@@ -236,13 +248,13 @@ public class RedisLettuceDao {
         return redisTemplate.opsForValue().setIfAbsent(key, value, timeoutMillis, TimeUnit.MILLISECONDS);
     }
 
-    public boolean keyDel(String key) {
+    public boolean delete(String key) {
         Objects.requireNonNull(key, "key");
 
         return redisTemplate.delete(key);
     }
 
-    public void keyIncreament(String key) {
+    public void increment(String key) {
         Objects.requireNonNull(key, "key");
 
         redisTemplate.opsForValue().increment(key);
