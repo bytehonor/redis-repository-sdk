@@ -11,6 +11,10 @@ public interface RedisCacheService {
     public void expireAt(String key, long timestamp);
 
     public void increament(String key);
+    
+    public void resetCount(String key);
 
-    public boolean lock(String key, String value, long millis);
+    public int getCount(String key);
+
+    public boolean lock(String key, long millis);
 }

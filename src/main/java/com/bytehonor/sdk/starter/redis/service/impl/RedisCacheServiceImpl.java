@@ -1,7 +1,9 @@
 package com.bytehonor.sdk.starter.redis.service.impl;
 
+import com.bytehonor.sdk.lang.bytehonor.getter.IntegerGetter;
 import com.bytehonor.sdk.starter.redis.dao.RedisLettuceDao;
 import com.bytehonor.sdk.starter.redis.service.RedisCacheService;
+import com.bytehonor.sdk.starter.redis.util.RedisSdkUtils;
 
 public class RedisCacheServiceImpl implements RedisCacheService {
 
@@ -37,8 +39,22 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public boolean lock(String key, String value, long millis) {
-        return redisLettuceDao.kvSetIfAbsent(key, value, millis);
+    public boolean lock(String key, long millis) {
+        if (RedisSdkUtils.isEmpty(key)) {
+            return false;
+        }
+        return redisLettuceDao.kvSetIfAbsent(key, key, millis);
+    }
+
+    @Override
+    public void resetCount(String key) {
+        redisLettuceDao.kvSet(key, "0");
+    }
+
+    @Override
+    public int getCount(String key) {
+        String val = redisLettuceDao.kvGet(key);
+        return IntegerGetter.optional(val, 0);
     }
 
 }
