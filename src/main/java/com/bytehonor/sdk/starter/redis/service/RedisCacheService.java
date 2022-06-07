@@ -13,6 +13,8 @@ public interface RedisCacheService {
     public String kvGet(String key);
 
     public void kvSet(String key, String value);
+    
+    public void kvSetAndTtl(String key, String value, long millis);
 
     public boolean kvSetIfAbsent(String key, String value, long millis);
 
@@ -30,5 +32,5 @@ public interface RedisCacheService {
     
     public void hashDelete(String key, String field);
     
-    public long hashSize(String key);
+    public int hashSize(String key);
 }

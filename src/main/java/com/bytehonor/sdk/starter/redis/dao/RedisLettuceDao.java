@@ -14,7 +14,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.bytehonor.sdk.starter.redis.util.RedisSdkUtils;
+import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 
 /**
  * @author lijianqiang
@@ -77,7 +77,7 @@ public class RedisLettuceDao {
             public Long doInRedis(RedisConnection connection) throws DataAccessException {
                 connection.openPipeline();
                 for (Map.Entry<String, Integer> item : increaments.entrySet()) {
-                    if (RedisSdkUtils.isEmpty(item.getKey()) || item.getValue() == null) {
+                    if (StringObject.isEmpty(item.getKey()) || item.getValue() == null) {
                         continue;
                     }
                     connection.hIncrBy(keyBytes, item.getKey().getBytes(), item.getValue());
@@ -106,7 +106,7 @@ public class RedisLettuceDao {
             public Integer doInRedis(RedisConnection connection) throws DataAccessException {
                 connection.openPipeline();
                 for (Map.Entry<String, String> item : hashMap.entrySet()) {
-                    if (RedisSdkUtils.isEmpty(item.getValue())) {
+                    if (StringObject.isEmpty(item.getValue())) {
                         continue;
                     }
                     connection.hIncrBy(item.getKey().getBytes(), item.getValue().getBytes(), 1L);

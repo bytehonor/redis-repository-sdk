@@ -8,7 +8,6 @@ import com.bytehonor.sdk.define.bytehonor.util.StringObject;
 import com.bytehonor.sdk.lang.bytehonor.getter.IntegerGetter;
 import com.bytehonor.sdk.starter.redis.dao.RedisLettuceDao;
 import com.bytehonor.sdk.starter.redis.service.RedisCacheService;
-import com.bytehonor.sdk.starter.redis.util.RedisSdkUtils;
 
 public class RedisCacheServiceImpl implements RedisCacheService {
 
@@ -25,39 +24,74 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void kvSet(String key, String value) {
+        if (StringObject.isEmpty(key) || StringObject.isEmpty(value)) {
+            return;
+        }
+
         redisLettuceDao.kvSet(key, value);
     }
 
     @Override
+    public void kvSetAndTtl(String key, String value, long millis) {
+        if (StringObject.isEmpty(key) || StringObject.isEmpty(value)) {
+            return;
+        }
+
+        kvSet(key, value);
+        expireAt(key, System.currentTimeMillis() + millis);
+    }
+
+    @Override
     public void delete(String key) {
+        if (StringObject.isEmpty(key)) {
+            return;
+        }
+
         redisLettuceDao.keyDel(key);
     }
 
     @Override
     public void expireAt(String key, long timestamp) {
+        if (StringObject.isEmpty(key)) {
+            return;
+        }
+
         redisLettuceDao.expireAt(key, timestamp);
     }
 
     @Override
     public void increament(String key) {
+        if (StringObject.isEmpty(key)) {
+            return;
+        }
+
         redisLettuceDao.keyIncreament(key);
     }
 
     @Override
     public boolean lock(String key, long millis) {
-        if (RedisSdkUtils.isEmpty(key)) {
+        if (StringObject.isEmpty(key)) {
             return false;
         }
+
         return redisLettuceDao.kvSetIfAbsent(key, key, millis);
     }
 
     @Override
     public void resetCount(String key) {
+        if (StringObject.isEmpty(key)) {
+            return;
+        }
+
         redisLettuceDao.kvSet(key, "0");
     }
 
     @Override
     public int getCount(String key) {
+        if (StringObject.isEmpty(key)) {
+            return 0;
+        }
+
         String val = redisLettuceDao.kvGet(key);
         return IntegerGetter.optional(val, 0);
     }
@@ -67,6 +101,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(value)) {
             return false;
         }
+
         return redisLettuceDao.kvSetIfAbsent(key, value, millis);
     }
 
@@ -75,6 +110,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key)) {
             return new HashMap<String, Integer>();
         }
+
         Map<Object, Object> raws = redisLettuceDao.hashEntries(key);
         Map<String, Integer> result = new HashMap<String, Integer>(raws.size() * 2);
         for (Entry<Object, Object> item : raws.entrySet()) {
@@ -88,6 +124,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(field)) {
             return null;
         }
+
         Object raw = redisLettuceDao.hashGet(key, field);
         if (raw == null) {
             return null;
@@ -100,6 +137,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(field) || val == null) {
             return;
         }
+
         redisLettuceDao.hashPut(key, field, val.toString());
     }
 
@@ -108,16 +146,18 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key) || StringObject.isEmpty(field)) {
             return;
         }
+
         redisLettuceDao.hashDelete(key, field);
     }
 
     @Override
-    public long hashSize(String key) {
+    public int hashSize(String key) {
         if (StringObject.isEmpty(key)) {
-            return 0L;
+            return 0;
         }
+
         Long size = redisLettuceDao.hashSize(key);
-        return size != null ? size : 0L;
+        return size != null ? size.intValue() : 0;
     }
 
 }
