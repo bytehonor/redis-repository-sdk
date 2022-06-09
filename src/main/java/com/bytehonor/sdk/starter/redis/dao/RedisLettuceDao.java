@@ -238,7 +238,12 @@ public class RedisLettuceDao {
     public String kvGet(String key) {
         Objects.requireNonNull(key, "key");
 
-        return (String) redisTemplate.opsForValue().get(key);
+        // (String) 不能强制转换
+        Serializable val = redisTemplate.opsForValue().get(key);
+        if (val == null) {
+            return null;
+        }
+        return val.toString();
     }
 
     public boolean kvSetIfAbsent(String key, String value, long timeoutMillis) {
