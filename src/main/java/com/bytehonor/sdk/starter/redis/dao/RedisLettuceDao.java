@@ -200,11 +200,25 @@ public class RedisLettuceDao {
         redisTemplate.opsForSet().add(key, value);
     }
 
-    public void setAdds(String key, Object... values) {
+    public void setAdds(String key, Set<String> values) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");
 
-        redisTemplate.opsForSet().add(key, values);
+        redisTemplate.opsForSet().add(key, values.toArray());
+    }
+    
+    public void setLongAdds(String key, Set<Long> values) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(values, "values");
+
+        redisTemplate.opsForSet().add(key, values.toArray());
+    }
+    
+    public void setIntegerAdds(String key, Set<Integer> values) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(values, "values");
+
+        redisTemplate.opsForSet().add(key, values.toArray());
     }
 
     public boolean setContains(String key, Object target) {

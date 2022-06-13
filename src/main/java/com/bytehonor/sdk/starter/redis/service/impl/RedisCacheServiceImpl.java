@@ -201,7 +201,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
-        redisLettuceDao.setAdds(key, values.toArray());
+        redisLettuceDao.setAdds(key, values);
     }
 
     @Override
@@ -241,7 +241,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
-        redisLettuceDao.setAdds(key, values.toArray());
+        redisLettuceDao.setLongAdds(key, values);
     }
 
     @Override
