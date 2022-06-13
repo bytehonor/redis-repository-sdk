@@ -200,10 +200,19 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key) || CollectionUtils.isEmpty(values)) {
             return;
         }
+//        for (String value : values) {
+//            redisLettuceDao.setAdd(key, value);
+//        }
+        redisLettuceDao.setAdds(key, toArray(values));
+    }
+
+    private Serializable[] toArray(Set<String> values) {
+        Serializable[] arr = new Serializable[values.size()];
+        int i = 0;
         for (String value : values) {
-            redisLettuceDao.setAdd(key, value);
+            arr[i++] = value;
         }
-        // redisLettuceDao.setAdds(key, values);
+        return arr;
     }
 
     @Override
