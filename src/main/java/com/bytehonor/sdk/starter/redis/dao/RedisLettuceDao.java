@@ -200,6 +200,11 @@ public class RedisLettuceDao {
         redisTemplate.opsForSet().add(key, value);
     }
 
+    /**
+     * 有bug TODO
+     * @param key
+     * @param values
+     */
     public void setAdds(String key, Object... values) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");

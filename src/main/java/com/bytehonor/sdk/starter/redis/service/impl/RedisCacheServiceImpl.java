@@ -241,16 +241,10 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
-        redisLettuceDao.setAdds(key, values.toArray());
-    }
-    
-    public <T> Object[] toArray(Set<T> values) {
-        Object[] arr = new Object[values.size()];
-        int i = 0;
-        for (T t : values) {
-            arr[i++] = t;
+        for (Long value : values) {
+            redisLettuceDao.setAdd(key, value.toString());
         }
-        return arr;
+        // redisLettuceDao.setAdds(key, values.toArray());
     }
 
     @Override
