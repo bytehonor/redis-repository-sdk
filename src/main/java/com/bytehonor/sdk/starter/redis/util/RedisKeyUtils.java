@@ -18,7 +18,7 @@ public class RedisKeyUtils {
         }
         return sb.toString();
     }
-    
+
     public static String any(Object... keys) {
         if (keys == null || keys.length < 1) {
             throw new RuntimeException("keys cannt be empty");

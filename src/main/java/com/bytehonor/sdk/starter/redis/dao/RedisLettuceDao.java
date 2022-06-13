@@ -206,7 +206,7 @@ public class RedisLettuceDao {
      * @param key
      * @param values
      */
-    public void setAdds(String key, Serializable... values) {
+    public void setAdds(String key, Serializable[] values) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");
 
