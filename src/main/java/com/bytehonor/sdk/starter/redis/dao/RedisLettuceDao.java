@@ -200,7 +200,7 @@ public class RedisLettuceDao {
         redisTemplate.opsForSet().add(key, value);
     }
 
-    public void setAdds(String key, Object[] values) {
+    public void setAdds(String key, Object... values) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");
 
