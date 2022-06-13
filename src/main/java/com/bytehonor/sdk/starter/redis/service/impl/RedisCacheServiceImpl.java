@@ -200,9 +200,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         if (StringObject.isEmpty(key) || CollectionUtils.isEmpty(values)) {
             return;
         }
-//        for (String value : values) {
-//            redisLettuceDao.setAdd(key, value);
-//        }
+
         redisLettuceDao.setAdds(key, toArray(values));
     }
 
@@ -252,10 +250,16 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
+        redisLettuceDao.setAdds(key, toLongArray(values));
+    }
+
+    private Serializable[] toLongArray(Set<Long> values) {
+        Serializable[] arr = new Serializable[values.size()];
+        int i = 0;
         for (Long value : values) {
-            redisLettuceDao.setAdd(key, value.toString());
+            arr[i++] = value;
         }
-        // redisLettuceDao.setAdds(key, values.toArray());
+        return arr;
     }
 
     @Override

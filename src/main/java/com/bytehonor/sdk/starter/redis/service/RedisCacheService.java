@@ -36,11 +36,11 @@ public interface RedisCacheService {
     public void hashDelete(String key, String field);
 
     public int hashSize(String key);
-    
+
     public int setSize(String key);
 
     public void setAdd(String key, String value);
-    
+
     public void setAdds(String key, Set<String> values);
 
     public boolean setContains(String key, String value);
@@ -48,7 +48,7 @@ public interface RedisCacheService {
     public Set<String> setMemebers(String key);
 
     public void setLongAdd(String key, Long value);
-    
+
     public void setLongAdds(String key, Set<Long> values);
 
     public boolean setLongContains(String key, Long value);

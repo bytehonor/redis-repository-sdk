@@ -201,7 +201,8 @@ public class RedisLettuceDao {
     }
 
     /**
-     * 有bug TODO
+     * 注意，外层必须传 Serializable[], 如果传Object[], 整个Object[] 只会当成一个值
+     * 
      * @param key
      * @param values
      */
