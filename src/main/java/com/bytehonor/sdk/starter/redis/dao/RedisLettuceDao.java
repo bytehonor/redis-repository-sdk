@@ -211,9 +211,16 @@ public class RedisLettuceDao {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");
 
-        redisTemplate.opsForSet().add(key, values.toArray());
+        redisTemplate.opsForSet().add(key, toArray(values));
     }
-    
+    private <T> Object[] toArray(Set<T> values) {
+        Object[] arr = new Object[values.size()];
+        int i = 0;
+        for (T t : values) {
+            arr[i++] = t;
+        }
+        return arr;
+    }
     public void setIntegerAdds(String key, Set<Integer> values) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(values, "values");
