@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.springframework.util.CollectionUtils;
 
-import com.bytehonor.sdk.beautify.lang.getter.IntegerGetter;
-import com.bytehonor.sdk.beautify.lang.getter.LongGetter;
-import com.bytehonor.sdk.define.bytehonor.util.StringObject;
+import com.bytehonor.sdk.define.spring.getter.IntegerGetter;
+import com.bytehonor.sdk.define.spring.getter.LongGetter;
+import com.bytehonor.sdk.define.spring.util.StringObject;
 import com.bytehonor.sdk.starter.redis.dao.RedisLettuceDao;
 import com.bytehonor.sdk.starter.redis.service.RedisCacheService;
 
