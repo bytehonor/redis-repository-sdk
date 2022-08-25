@@ -127,15 +127,11 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public Integer hashIntGet(String key, String field) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field)) {
-            return null;
-        }
-
-        Object raw = redisLettuceDao.hashGet(key, field);
+        String raw = hashGet(key, field);
         if (raw == null) {
             return null;
         }
-        return IntegerGetter.optional(String.valueOf(raw));
+        return IntegerGetter.optional(raw);
     }
 
     @Override
@@ -144,7 +140,25 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
-        redisLettuceDao.hashPut(key, field, val.toString());
+        hashPut(key, field, val.toString());
+    }
+    
+    @Override
+    public Long hashLongGet(String key, String field) {
+        String raw = hashGet(key, field);
+        if (raw == null) {
+            return null;
+        }
+        return LongGetter.optional(raw);
+    }
+
+    @Override
+    public void hashLongPut(String key, String field, Long val) {
+        if (SpringString.isEmpty(key) || SpringString.isEmpty(field) || val == null) {
+            return;
+        }
+
+        hashPut(key, field, val.toString());
     }
 
     @Override
@@ -154,6 +168,28 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         }
 
         redisLettuceDao.hashIncrement(key, field);
+    }
+
+    @Override
+    public String hashGet(String key, String field) {
+        if (SpringString.isEmpty(key) || SpringString.isEmpty(field)) {
+            return null;
+        }
+
+        Object raw = redisLettuceDao.hashGet(key, field);
+        if (raw == null) {
+            return null;
+        }
+        return String.valueOf(raw);
+    }
+
+    @Override
+    public void hashPut(String key, String field, String val) {
+        if (SpringString.isEmpty(key) || SpringString.isEmpty(field) || val == null) {
+            return;
+        }
+
+        redisLettuceDao.hashPut(key, field, val);
     }
 
     @Override
