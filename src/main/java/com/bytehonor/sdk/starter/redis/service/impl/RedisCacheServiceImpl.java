@@ -66,21 +66,23 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public Long increment(String key) {
+    public long increment(String key) {
         if (SpringString.isEmpty(key)) {
             return 0L;
         }
 
-        return redisLettuceDao.increment(key);
+        Long val = redisLettuceDao.increment(key);
+        return val != null ? val : 0L;
     }
 
     @Override
-    public Long decrement(String key) {
+    public long decrement(String key) {
         if (SpringString.isEmpty(key)) {
             return 0L;
         }
 
-        return redisLettuceDao.decrement(key);
+        Long val = redisLettuceDao.decrement(key);
+        return val != null ? val : 0L;
     }
 
     @Override
@@ -114,7 +116,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     @Override
     public long getLong(String key) {
         if (SpringString.isEmpty(key)) {
-            return 0;
+            return 0L;
         }
 
         String val = redisLettuceDao.kvGet(key);

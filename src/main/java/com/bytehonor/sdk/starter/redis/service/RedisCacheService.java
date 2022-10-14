@@ -19,9 +19,9 @@ public interface RedisCacheService {
 
     public boolean kvSetIfAbsent(String key, String value, long millis);
 
-    public Long increment(String key);
+    public long increment(String key);
 
-    public Long decrement(String key);
+    public long decrement(String key);
 
     public void resetZero(String key);
 
