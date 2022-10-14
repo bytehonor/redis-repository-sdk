@@ -95,12 +95,12 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public void resetZero(String key) {
+    public void putInteger(String key, Integer val) {
         if (SpringString.isEmpty(key)) {
             return;
         }
 
-        redisLettuceDao.kvSet(key, "0");
+        redisLettuceDao.putInteger(key, val);
     }
 
     @Override

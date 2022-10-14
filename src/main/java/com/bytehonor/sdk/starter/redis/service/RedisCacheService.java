@@ -23,7 +23,7 @@ public interface RedisCacheService {
 
     public long decrement(String key);
 
-    public void resetZero(String key);
+    public void putInteger(String key, Integer val);
 
     public int getInteger(String key);
 

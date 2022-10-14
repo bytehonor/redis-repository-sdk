@@ -276,4 +276,11 @@ public class RedisLettuceDao {
 
         return redisTemplate.opsForValue().decrement(key);
     }
+
+    public void putInteger(String key, Integer value) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(value, "value");
+
+        redisTemplate.opsForValue().set(key, value);
+    }
 }
