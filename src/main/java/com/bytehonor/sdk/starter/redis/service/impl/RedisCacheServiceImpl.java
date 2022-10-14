@@ -66,12 +66,21 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public void increment(String key) {
+    public Long increment(String key) {
         if (SpringString.isEmpty(key)) {
-            return;
+            return 0L;
         }
 
-        redisLettuceDao.increment(key);
+        return redisLettuceDao.increment(key);
+    }
+
+    @Override
+    public Long decrement(String key) {
+        if (SpringString.isEmpty(key)) {
+            return 0L;
+        }
+
+        return redisLettuceDao.decrement(key);
     }
 
     @Override
@@ -84,7 +93,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public void resetCount(String key) {
+    public void resetZero(String key) {
         if (SpringString.isEmpty(key)) {
             return;
         }
@@ -93,13 +102,23 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
-    public int getCount(String key) {
+    public int getInteger(String key) {
         if (SpringString.isEmpty(key)) {
             return 0;
         }
 
         String val = redisLettuceDao.kvGet(key);
         return IntegerGetter.optional(val, 0);
+    }
+
+    @Override
+    public long getLong(String key) {
+        if (SpringString.isEmpty(key)) {
+            return 0;
+        }
+
+        String val = redisLettuceDao.kvGet(key);
+        return LongGetter.optional(val, 0L);
     }
 
     @Override
@@ -142,7 +161,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
         hashPut(key, field, val.toString());
     }
-    
+
     @Override
     public Long hashLongGet(String key, String field) {
         String raw = hashGet(key, field);

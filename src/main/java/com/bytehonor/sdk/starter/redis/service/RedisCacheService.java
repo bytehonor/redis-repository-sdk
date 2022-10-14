@@ -19,11 +19,15 @@ public interface RedisCacheService {
 
     public boolean kvSetIfAbsent(String key, String value, long millis);
 
-    public void increment(String key);
+    public Long increment(String key);
 
-    public void resetCount(String key);
+    public Long decrement(String key);
 
-    public int getCount(String key);
+    public void resetZero(String key);
+
+    public int getInteger(String key);
+
+    public long getLong(String key);
 
     public Map<String, Integer> hashIntEntries(String key);
 

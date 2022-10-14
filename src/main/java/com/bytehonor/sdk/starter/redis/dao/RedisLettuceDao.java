@@ -265,10 +265,15 @@ public class RedisLettuceDao {
         return redisTemplate.delete(key);
     }
 
-    public void increment(String key) {
+    public Long increment(String key) {
         Objects.requireNonNull(key, "key");
 
-        redisTemplate.opsForValue().increment(key);
+        return redisTemplate.opsForValue().increment(key);
     }
 
+    public Long decrement(String key) {
+        Objects.requireNonNull(key, "key");
+
+        return redisTemplate.opsForValue().decrement(key);
+    }
 }
