@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-lang-sdk:0.3.32')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.4.1')
 	api("org.springframework.data:spring-data-redis:2.7.2")
 	api("io.lettuce:lettuce-core:6.2.0.RELEASE")
 	api('org.apache.commons:commons-pool2:2.11.1')
