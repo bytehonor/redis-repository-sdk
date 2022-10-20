@@ -124,6 +124,15 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
+    public void putLong(String key, Long val) {
+        if (SpringString.isEmpty(key)) {
+            return;
+        }
+
+        redisLettuceDao.putLong(key, val);
+    }
+
+    @Override
     public boolean kvSetIfAbsent(String key, String value, long millis) {
         if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
             return false;

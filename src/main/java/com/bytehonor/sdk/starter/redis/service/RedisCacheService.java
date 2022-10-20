@@ -29,6 +29,8 @@ public interface RedisCacheService {
 
     public long getLong(String key);
 
+    public void putLong(String key, Long val);
+
     public Map<String, Integer> hashIntEntries(String key);
 
     public Integer hashIntGet(String key, String field);
