@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '0.3.14'
+version = '0.3.15'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -21,15 +21,15 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-lang-sdk:0.4.15')
-    api("org.springframework.data:spring-data-redis:2.7.12")
+    api('com.bytehonor.sdk:spring-lang-sdk:0.4.17')
+    api("org.springframework.data:spring-data-redis:2.7.15")
     api("io.lettuce:lettuce-core:6.2.0.RELEASE")
     api('org.apache.commons:commons-pool2:2.11.1')
-    implementation('org.springframework.boot:spring-boot-starter:2.7.12')
-    implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.12')
-    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.7.12')
-    implementation('org.slf4j:slf4j-api:1.7.36')
-    implementation('ch.qos.logback:logback-classic:1.2.12')
+    implementation('org.springframework.boot:spring-boot-starter:2.7.15')
+    implementation('org.springframework.boot:spring-boot-autoconfigure:2.7.15')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor:2.7.15')
+    implementation('org.slf4j:slf4j-api:2.0.9')
+    implementation('ch.qos.logback:logback-classic:1.4.11')
     testImplementation('junit:junit:4.13.2')
 }
 
