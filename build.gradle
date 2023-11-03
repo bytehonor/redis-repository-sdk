@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.bytehonor.sdk'
-version = '0.3.15'
+version = '0.3.16'
 sourceCompatibility = 1.8
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    api('com.bytehonor.sdk:spring-lang-sdk:0.4.17')
+    api('com.bytehonor.sdk:spring-lang-sdk:0.4.19')
     api("org.springframework.data:spring-data-redis:2.7.15")
     api("io.lettuce:lettuce-core:6.2.0.RELEASE")
     api('org.apache.commons:commons-pool2:2.11.1')
