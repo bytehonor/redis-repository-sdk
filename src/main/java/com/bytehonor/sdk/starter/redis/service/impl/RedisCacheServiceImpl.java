@@ -43,8 +43,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return;
         }
 
-        kvSet(key, value);
-        expireAt(key, System.currentTimeMillis() + millis);
+        redisLettuceDao.kvSetAndExpire(key, value, millis);
     }
 
     @Override
@@ -148,6 +147,10 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         }
 
         Map<Object, Object> raws = redisLettuceDao.hashEntries(key);
+        if (raws == null || raws.isEmpty()) {
+            return new HashMap<String, Integer>();
+        }
+
         Map<String, Integer> result = new HashMap<String, Integer>(raws.size() * 2);
         for (Entry<Object, Object> item : raws.entrySet()) {
             result.put(String.valueOf(item.getKey()), IntegerGetter.optional(String.valueOf(item.getKey())));
@@ -293,6 +296,9 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return new HashSet<String>();
         }
         Set<Serializable> raws = redisLettuceDao.setMemebers(key);
+        if (CollectionUtils.isEmpty(raws)) {
+            return new HashSet<String>();
+        }
         Set<String> result = new HashSet<String>(raws.size() * 2);
         for (Serializable raw : raws) {
             result.add(raw.toString());
@@ -342,6 +348,9 @@ public class RedisCacheServiceImpl implements RedisCacheService {
             return new HashSet<Long>();
         }
         Set<Serializable> raws = redisLettuceDao.setMemebers(key);
+        if (CollectionUtils.isEmpty(raws)) {
+            return new HashSet<Long>();
+        }
         Set<Long> result = new HashSet<Long>(raws.size() * 2);
         for (Serializable raw : raws) {
             result.add(LongGetter.optional(raw.toString(), 0L));

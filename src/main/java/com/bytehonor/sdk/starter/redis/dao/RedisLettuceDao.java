@@ -241,6 +241,13 @@ public class RedisLettuceDao {
         redisTemplate.opsForValue().set(key, value);
     }
 
+    public void kvSetAndExpire(String key, String value, long timeoutMillis) {
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(value, "value");
+
+        redisTemplate.opsForValue().set(key, value, timeoutMillis, TimeUnit.MILLISECONDS);
+    }
+
     public String kvGet(String key) {
         Objects.requireNonNull(key, "key");
 
@@ -283,7 +290,7 @@ public class RedisLettuceDao {
 
         redisTemplate.opsForValue().set(key, value);
     }
-    
+
     public void putLong(String key, Long value) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(value, "value");
