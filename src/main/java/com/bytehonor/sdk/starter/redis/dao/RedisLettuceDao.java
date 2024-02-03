@@ -271,6 +271,12 @@ public class RedisLettuceDao {
 
         return redisTemplate.delete(key);
     }
+    
+    public boolean has(String key) {
+        Objects.requireNonNull(key, "key");
+        
+        return redisTemplate.hasKey(key);
+    }
 
     public Long increment(String key) {
         Objects.requireNonNull(key, "key");
@@ -297,4 +303,6 @@ public class RedisLettuceDao {
 
         redisTemplate.opsForValue().set(key, value);
     }
+
+    
 }

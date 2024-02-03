@@ -56,6 +56,14 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
+    public boolean has(String key) {
+        if (SpringString.isEmpty(key)) {
+            return false;
+        }
+        return redisLettuceDao.has(key);
+    }
+
+    @Override
     public void expireAt(String key, long timestamp) {
         if (SpringString.isEmpty(key)) {
             return;

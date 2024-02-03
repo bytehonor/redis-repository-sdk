@@ -6,6 +6,8 @@ import java.util.Set;
 public interface RedisCacheService {
 
     public void delete(String key);
+    
+    public boolean has(String key);
 
     public boolean lock(String key, long millis);
 
