@@ -9,12 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-
-import com.bytehonor.sdk.lang.spring.string.SpringString;
 
 /**
  * @author lijianqiang
@@ -57,66 +52,6 @@ public class RedisLettuceDao {
         redisTemplate.opsForHash().delete(key, fields);
     }
 
-    /**
-     * 同一个key下不同的field
-     * 
-     * @param key
-     * @param increaments
-     */
-    public void hashIncreamentBatch(String key, final Map<String, Integer> increaments) {
-        Objects.requireNonNull(key, "key");
-        Objects.requireNonNull(increaments, "increaments");
-
-        if (increaments.isEmpty()) {
-            return;
-        }
-        final byte[] keyBytes = key.getBytes();
-        redisTemplate.execute(new RedisCallback<Long>() {
-
-            @Override
-            public Long doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.openPipeline();
-                for (Map.Entry<String, Integer> item : increaments.entrySet()) {
-                    if (SpringString.isEmpty(item.getKey()) || item.getValue() == null) {
-                        continue;
-                    }
-                    connection.hIncrBy(keyBytes, item.getKey().getBytes(), item.getValue());
-                }
-                return null;
-            }
-
-        });
-    }
-
-    /**
-     * 不同的key和field
-     * 
-     * @param hashMap
-     */
-    public void hashIncreamentMulti(final Map<String, String> hashMap) {
-        Objects.requireNonNull(hashMap, "hashMap");
-
-        if (hashMap.isEmpty()) {
-            return;
-        }
-
-        redisTemplate.execute(new RedisCallback<Integer>() {
-
-            @Override
-            public Integer doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.openPipeline();
-                for (Map.Entry<String, String> item : hashMap.entrySet()) {
-                    if (SpringString.isEmpty(item.getValue())) {
-                        continue;
-                    }
-                    connection.hIncrBy(item.getKey().getBytes(), item.getValue().getBytes(), 1L);
-                }
-                return null;
-            }
-
-        });
-    }
-
     public Long hashSize(String key) {
         Objects.requireNonNull(key, "key");
 
@@ -144,46 +79,10 @@ public class RedisLettuceDao {
         redisTemplate.expire(key, timeout, unit);
     }
 
-    public void expireBatchSeconds(final Map<String, Long> map) {
-        Objects.requireNonNull(map, "map");
-
-        if (map.isEmpty()) {
-            return;
-        }
-
-        redisTemplate.execute(new RedisCallback<Long>() {
-
-            @Override
-            public Long doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.openPipeline();
-                for (Map.Entry<String, Long> item : map.entrySet()) {
-                    connection.expire(item.getKey().getBytes(), item.getValue());
-                }
-                return null;
-            }
-
-        });
-    }
-
     public void expireAt(String key, long timestamp) {
         Objects.requireNonNull(key, "key");
 
         redisTemplate.expireAt(key, new Date(timestamp));
-    }
-
-    public void expireAtBatchSeconds(final Map<String, Long> map) {
-        redisTemplate.execute(new RedisCallback<Long>() {
-
-            @Override
-            public Long doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.openPipeline();
-                for (Map.Entry<String, Long> item : map.entrySet()) {
-                    connection.expireAt(item.getKey().getBytes(), item.getValue());
-                }
-                return null;
-            }
-
-        });
     }
 
     /* set 操作 */
