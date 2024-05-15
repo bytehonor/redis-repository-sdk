@@ -33,7 +33,7 @@ public class RedisStarterAutoConfiguration {
     private static final Logger LOG = LoggerFactory.getLogger(RedisStarterAutoConfiguration.class);
 
     @Bean
-    public RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory connectionFactory) {
+    RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory connectionFactory) {
         LOG.info("[Bytehonor] RedisTemplate");
         RedisTemplate<String, Serializable> template = new RedisTemplate<String, Serializable>();
         StringRedisSerializer serializer = new StringRedisSerializer();
@@ -47,14 +47,14 @@ public class RedisStarterAutoConfiguration {
 
     @ConditionalOnMissingBean(RedisLettuceDao.class)
     @Bean
-    public RedisLettuceDao redisLettuceDao(RedisTemplate<String, Serializable> redisTemplate) {
+    RedisLettuceDao redisLettuceDao(RedisTemplate<String, Serializable> redisTemplate) {
         LOG.info("[Bytehonor] RedisLettuceDao");
         return new RedisLettuceDao(redisTemplate);
     }
 
     @ConditionalOnMissingBean(RedisCacheService.class)
     @Bean
-    public RedisCacheService redisCacheService(RedisLettuceDao redisLettuceDao) {
+    RedisCacheService redisCacheService(RedisLettuceDao redisLettuceDao) {
         LOG.info("[Bytehonor] RedisCacheService");
         return new RedisCacheServiceImpl(redisLettuceDao);
     }
