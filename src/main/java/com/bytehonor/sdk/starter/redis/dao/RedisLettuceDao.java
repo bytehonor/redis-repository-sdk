@@ -125,7 +125,7 @@ public class RedisLettuceDao {
         return redisTemplate.opsForSet().members(key);
     }
 
-    public void setDel(String key, String value) {
+    public void setRemove(String key, String value) {
         Objects.requireNonNull(key, "key");
         Objects.requireNonNull(value, "value");
 

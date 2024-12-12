@@ -366,4 +366,13 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         return result;
     }
 
+    @Override
+    public void setRemove(String key, String value) {
+        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+            return;
+        }
+
+        redisLettuceDao.setRemove(key, value);
+    }
+
 }

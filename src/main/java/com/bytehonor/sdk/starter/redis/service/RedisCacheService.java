@@ -6,7 +6,7 @@ import java.util.Set;
 public interface RedisCacheService {
 
     public void delete(String key);
-    
+
     public boolean has(String key);
 
     public boolean lock(String key, long millis);
@@ -70,4 +70,6 @@ public interface RedisCacheService {
     public boolean setLongContains(String key, Long value);
 
     public Set<Long> setLongMemebers(String key);
+
+    public void setRemove(String key, String value);
 }
