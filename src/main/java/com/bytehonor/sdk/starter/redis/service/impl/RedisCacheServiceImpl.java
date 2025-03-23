@@ -161,7 +161,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
         Map<String, String> result = new HashMap<String, String>(raws.size() * 2);
         for (Entry<Object, Object> item : raws.entrySet()) {
-            result.put(String.valueOf(item.getKey()), String.valueOf(item.getKey()));
+            result.put(String.valueOf(item.getKey()), String.valueOf(item.getValue()));
         }
         return result;
     }
@@ -179,7 +179,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
         Map<String, Integer> result = new HashMap<String, Integer>(raws.size() * 2);
         for (Entry<Object, Object> item : raws.entrySet()) {
-            result.put(String.valueOf(item.getKey()), IntegerGetter.optional(String.valueOf(item.getKey())));
+            result.put(String.valueOf(item.getKey()), IntegerGetter.optional(String.valueOf(item.getValue())));
         }
         return result;
     }
