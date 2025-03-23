@@ -149,6 +149,24 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
+    public Map<String, String> hashEntries(String key) {
+        if (SpringString.isEmpty(key)) {
+            return new HashMap<String, String>();
+        }
+
+        Map<Object, Object> raws = redisLettuceDao.hashEntries(key);
+        if (raws == null || raws.isEmpty()) {
+            return new HashMap<String, String>();
+        }
+
+        Map<String, String> result = new HashMap<String, String>(raws.size() * 2);
+        for (Entry<Object, Object> item : raws.entrySet()) {
+            result.put(String.valueOf(item.getKey()), String.valueOf(item.getKey()));
+        }
+        return result;
+    }
+
+    @Override
     public Map<String, Integer> hashIntEntries(String key) {
         if (SpringString.isEmpty(key)) {
             return new HashMap<String, Integer>();

@@ -33,6 +33,8 @@ public interface RedisCacheService {
 
     public void putLong(String key, Long val);
 
+    public Map<String, String> hashEntries(String key);
+
     public Map<String, Integer> hashIntEntries(String key);
 
     public Integer hashIntGet(String key, String field);
