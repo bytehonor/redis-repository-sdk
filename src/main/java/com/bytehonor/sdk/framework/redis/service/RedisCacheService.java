@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.starter.redis.service;
+package com.bytehonor.sdk.framework.redis.service;
 
 import java.util.Map;
 import java.util.Set;

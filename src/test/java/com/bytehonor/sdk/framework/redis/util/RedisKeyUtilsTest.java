@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.starter.redis.util;
+package com.bytehonor.sdk.framework.redis.util;
 
 import org.junit.Test;
 import org.slf4j.Logger;

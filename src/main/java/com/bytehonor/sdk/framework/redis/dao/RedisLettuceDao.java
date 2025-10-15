@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.starter.redis.dao;
+package com.bytehonor.sdk.framework.redis.dao;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.bytehonor.sdk.lang.spring.Java;
+import com.bytehonor.sdk.framework.lang.Java;
 
 /**
  * @author lijianqiang

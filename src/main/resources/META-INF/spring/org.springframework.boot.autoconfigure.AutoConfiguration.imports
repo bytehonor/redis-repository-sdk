@@ -1,1 +1,1 @@
-com.bytehonor.sdk.starter.redis.config.RedisStarterAutoConfiguration
+com.bytehonor.sdk.framework.redis.config.RedisFrameworkConfiguration
