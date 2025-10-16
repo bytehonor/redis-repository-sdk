@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.redis.service.impl;
+package com.bytehonor.sdk.repository.redis.service.impl;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,8 +12,8 @@ import org.springframework.util.CollectionUtils;
 import com.bytehonor.sdk.framework.lang.getter.IntegerGetter;
 import com.bytehonor.sdk.framework.lang.getter.LongGetter;
 import com.bytehonor.sdk.framework.lang.string.StringKit;
-import com.bytehonor.sdk.framework.redis.dao.RedisLettuceDao;
-import com.bytehonor.sdk.framework.redis.service.RedisCacheService;
+import com.bytehonor.sdk.repository.redis.dao.RedisLettuceDao;
+import com.bytehonor.sdk.repository.redis.service.RedisCacheService;
 
 public class RedisCacheServiceImpl implements RedisCacheService {
 

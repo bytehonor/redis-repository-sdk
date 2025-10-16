@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.redis.config;
+package com.bytehonor.sdk.repository.redis.config;
 
 import java.io.Serializable;
 
@@ -17,9 +17,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import com.bytehonor.sdk.framework.redis.dao.RedisLettuceDao;
-import com.bytehonor.sdk.framework.redis.service.RedisCacheService;
-import com.bytehonor.sdk.framework.redis.service.impl.RedisCacheServiceImpl;
+import com.bytehonor.sdk.repository.redis.dao.RedisLettuceDao;
+import com.bytehonor.sdk.repository.redis.service.RedisCacheService;
+import com.bytehonor.sdk.repository.redis.service.impl.RedisCacheServiceImpl;
 
 /**
  * @author lijianqiang
@@ -28,9 +28,9 @@ import com.bytehonor.sdk.framework.redis.service.impl.RedisCacheServiceImpl;
 @Configuration
 @ConditionalOnClass({ RedisOperations.class, RedisProperties.class })
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-public class RedisFrameworkConfiguration {
+public class RedisRepositoryConfiguration {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RedisFrameworkConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RedisRepositoryConfiguration.class);
 
     @Bean
     RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory connectionFactory) {

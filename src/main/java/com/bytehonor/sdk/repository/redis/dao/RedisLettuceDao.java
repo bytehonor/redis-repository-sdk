@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.redis.dao;
+package com.bytehonor.sdk.repository.redis.dao;
 
 import java.io.Serializable;
 import java.util.Date;

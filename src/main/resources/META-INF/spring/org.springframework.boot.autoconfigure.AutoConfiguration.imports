@@ -1,1 +1,1 @@
-com.bytehonor.sdk.framework.redis.config.RedisFrameworkConfiguration
+com.bytehonor.sdk.repository.redis.config.RedisRepositoryConfiguration

@@ -1,4 +1,4 @@
-package com.bytehonor.sdk.framework.redis.util;
+package com.bytehonor.sdk.repository.redis.util;
 
 import static org.junit.Assert.fail;
 
