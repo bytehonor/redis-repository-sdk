@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.bytehonor.sdk.framework.lang.getter.IntegerGetter;
 import com.bytehonor.sdk.framework.lang.getter.LongGetter;
-import com.bytehonor.sdk.framework.lang.string.SpringString;
+import com.bytehonor.sdk.framework.lang.string.StringKit;
 import com.bytehonor.sdk.framework.redis.dao.RedisLettuceDao;
 import com.bytehonor.sdk.framework.redis.service.RedisCacheService;
 
@@ -30,7 +30,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void kvSet(String key, String value) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(value)) {
             return;
         }
 
@@ -39,7 +39,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void kvSetAndExpire(String key, String value, long millis) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(value)) {
             return;
         }
 
@@ -48,7 +48,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void delete(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return;
         }
 
@@ -57,7 +57,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public boolean has(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return false;
         }
         return redisLettuceDao.has(key);
@@ -65,7 +65,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void expireAt(String key, long timestamp) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return;
         }
 
@@ -74,7 +74,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public long increment(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return 0L;
         }
 
@@ -84,7 +84,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public long decrement(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return 0L;
         }
 
@@ -94,7 +94,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public boolean lock(String key, long millis) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return false;
         }
 
@@ -103,7 +103,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void putInteger(String key, Integer val) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return;
         }
 
@@ -112,7 +112,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public int getInteger(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return 0;
         }
 
@@ -122,7 +122,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public long getLong(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return 0L;
         }
 
@@ -132,7 +132,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void putLong(String key, Long val) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return;
         }
 
@@ -141,7 +141,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public boolean kvSetIfAbsent(String key, String value, long millis) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(value)) {
             return false;
         }
 
@@ -150,7 +150,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public Map<String, String> hashEntries(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return new HashMap<String, String>();
         }
 
@@ -168,7 +168,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public Map<String, Integer> hashIntEntries(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return new HashMap<String, Integer>();
         }
 
@@ -195,7 +195,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void hashIntPut(String key, String field, Integer val) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field) || val == null) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(field) || val == null) {
             return;
         }
 
@@ -213,7 +213,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void hashLongPut(String key, String field, Long val) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field) || val == null) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(field) || val == null) {
             return;
         }
 
@@ -222,7 +222,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void hashIncrement(String key, String field) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(field)) {
             return;
         }
 
@@ -231,7 +231,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public String hashGet(String key, String field) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(field)) {
             return null;
         }
 
@@ -244,7 +244,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void hashPut(String key, String field, String val) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field) || val == null) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(field) || val == null) {
             return;
         }
 
@@ -253,7 +253,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void hashDelete(String key, String field) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(field)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(field)) {
             return;
         }
 
@@ -262,7 +262,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public int hashSize(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return 0;
         }
 
@@ -272,7 +272,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public int setSize(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return 0;
         }
 
@@ -282,7 +282,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void setAdd(String key, String value) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(value)) {
             return;
         }
 
@@ -291,7 +291,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void setAdds(String key, Set<String> values) {
-        if (SpringString.isEmpty(key) || CollectionUtils.isEmpty(values)) {
+        if (StringKit.isEmpty(key) || CollectionUtils.isEmpty(values)) {
             return;
         }
 
@@ -309,7 +309,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public boolean setContains(String key, String value) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(value)) {
             return false;
         }
 
@@ -318,7 +318,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public Set<String> setMemebers(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return new HashSet<String>();
         }
         Set<Serializable> raws = redisLettuceDao.setMemebers(key);
@@ -334,7 +334,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void setLongAdd(String key, Long value) {
-        if (SpringString.isEmpty(key) || value == null) {
+        if (StringKit.isEmpty(key) || value == null) {
             return;
         }
 
@@ -343,7 +343,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void setLongAdds(String key, Set<Long> values) {
-        if (SpringString.isEmpty(key) || CollectionUtils.isEmpty(values)) {
+        if (StringKit.isEmpty(key) || CollectionUtils.isEmpty(values)) {
             return;
         }
 
@@ -361,7 +361,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public boolean setLongContains(String key, Long value) {
-        if (SpringString.isEmpty(key) || value == null) {
+        if (StringKit.isEmpty(key) || value == null) {
             return false;
         }
 
@@ -370,7 +370,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public Set<Long> setLongMemebers(String key) {
-        if (SpringString.isEmpty(key)) {
+        if (StringKit.isEmpty(key)) {
             return new HashSet<Long>();
         }
         Set<Serializable> raws = redisLettuceDao.setMemebers(key);
@@ -386,7 +386,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Override
     public void setRemove(String key, String value) {
-        if (SpringString.isEmpty(key) || SpringString.isEmpty(value)) {
+        if (StringKit.isEmpty(key) || StringKit.isEmpty(value)) {
             return;
         }
 
