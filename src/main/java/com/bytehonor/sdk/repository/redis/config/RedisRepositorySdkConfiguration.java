@@ -19,7 +19,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.bytehonor.sdk.repository.redis.dao.RedisLettuceDao;
 import com.bytehonor.sdk.repository.redis.service.RedisCacheService;
-import com.bytehonor.sdk.repository.redis.service.impl.RedisCacheServiceImpl;
 
 /**
  * @author lijianqiang
@@ -28,9 +27,9 @@ import com.bytehonor.sdk.repository.redis.service.impl.RedisCacheServiceImpl;
 @Configuration
 @ConditionalOnClass({ RedisOperations.class, RedisProperties.class })
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-public class RedisRepositoryConfiguration {
+public class RedisRepositorySdkConfiguration {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RedisRepositoryConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RedisRepositorySdkConfiguration.class);
 
     @Bean
     RedisTemplate<String, Serializable> redisTemplate(LettuceConnectionFactory connectionFactory) {
@@ -56,6 +55,6 @@ public class RedisRepositoryConfiguration {
     @Bean
     RedisCacheService redisCacheService(RedisLettuceDao redisLettuceDao) {
         LOG.info("[Bytehonor] RedisCacheService");
-        return new RedisCacheServiceImpl(redisLettuceDao);
+        return new RedisCacheService(redisLettuceDao);
     }
 }
